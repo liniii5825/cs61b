@@ -1,7 +1,7 @@
 /** 
  * @author lin <liniii@foxmail.com>
- * @version 1.1
- * @version 1.0
+ * @version 1.2
+ * since @version 1.1
  */
 
 import java.lang.management.RuntimeMXBean;
@@ -99,5 +99,9 @@ public class Planet {
         this.yyVel = this.yyVel + dt * accelerationY;
         this.xxPos += dt * this.xxVel;
         this.yyPos += dt * this.yyVel;
-    } 
+    }
+    
+    public void draw() {
+        StdDraw.picture(xxPos, yyPos, "images/" + imgFileName);
+    }
 } 
