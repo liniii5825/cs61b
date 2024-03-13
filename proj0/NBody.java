@@ -34,12 +34,9 @@ public class NBody {
             double yV = in.readDouble();
             double m = in.readDouble();
             String img = in.readString();
-
             p[i] = new Planet(xP, yP, xV, yV, m, img);
         }
         return p;
-        /*  */
-       
     }
 
     public static void main(String[] args) {
@@ -66,12 +63,14 @@ public class NBody {
         for (int t = 0; t < T; t += dt) {
             double[] xForce = new double[PlanetNumbers];
             double[] yForce = new double[PlanetNumbers];
+            /** Change the data of planet system after the motion in time dt */
             for (int i = 0; i < PlanetNumbers; i++) {
                 xForce[i] = planet[i].calcNetForceExertedByX(planet);
                 yForce[i] = planet[i].calcNetForceExertedByY(planet);
                 planet[i].update(dt, xForce[i], yForce[i]);
             }
             
+            /** Draw the picture after the data changed */
             StdDraw.picture(0, 0, "images/starfield.jpg");
             for (Planet p : planet) {
                 p.draw();
