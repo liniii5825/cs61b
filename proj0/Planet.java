@@ -1,20 +1,7 @@
 /** 
  * @author lin <liniii@foxmail.com>
- * @version 1.2
- * since @version 1.1
- */
-
-import java.lang.management.RuntimeMXBean;
-
-/**
- * Create a class of a Planet containing its propeties
- * @param xxPos Its current x position
- * @param yyPos Its current y position
- * @param xxVel Its current velocity in the x direction
- * @param yyVel Its current velocity in the y direction
- * @param mass  Its mass
- * @param imgFileName The name of the file that corresponds to the image that depicts the planet
- * @param G The gravitational constant
+ * @version 1.3
+ * since @version 1.2
  */
 
 public class Planet {
@@ -92,6 +79,12 @@ public class Planet {
         return totalForce;
     }
 
+    /**
+     * Update the data of a single planet after time dt
+     * @param dt the change of time
+     * @param Fx the change of force at x-axis
+     * @param Fy the change of force at y-axis
+     */
     public void update(double dt, double Fx, double Fy) {
         double accelerationX = Fx / this.mass;
         double accelerationY = Fy / this.mass;
@@ -101,6 +94,7 @@ public class Planet {
         this.yyPos += dt * this.yyVel;
     }
     
+    /** Draw the single planet at its position */
     public void draw() {
         StdDraw.picture(xxPos, yyPos, "images/" + imgFileName);
     }

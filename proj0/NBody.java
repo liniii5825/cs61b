@@ -1,3 +1,9 @@
+/** 
+ * @author lin <liniii@foxmail.com>
+ * @version 1.3
+ * since @version 1.2
+ */
+
 public class NBody {
     /**
      * Return the radius of the planet system(or the size of the darwing place)
