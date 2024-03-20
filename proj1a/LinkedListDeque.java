@@ -9,12 +9,12 @@
  * the last item: (if exist) always are the item in front of sentB
  */
 
-public class LinkedListDeque<Stuff> {
+public class LinkedListDeque<T> {
     /** The naked-linked list class */
     public class StuffNode {
         /** The node points to both sides of an item */
         private StuffNode prev, next;
-        private Stuff item;
+        private T item;
 
         /**
          * The constructor function of the StuffNode class
@@ -22,7 +22,7 @@ public class LinkedListDeque<Stuff> {
          * @param i the item
          * @param n the node points to the next item
          */
-        public StuffNode(StuffNode p, Stuff i, StuffNode n)
+        public StuffNode(StuffNode p, T i, StuffNode n)
         {
             prev = p;
             item = i;
@@ -35,21 +35,21 @@ public class LinkedListDeque<Stuff> {
 
     /** Create an empty LinkedListDeque */
     public LinkedListDeque() {
-        sentA = new StuffNode(null, (Stuff) "cake", null);
-        sentA.next = new StuffNode(sentA, (Stuff) "cookie", null);
+        sentA = new StuffNode(null, (T) "cake", null);
+        sentA.next = new StuffNode(sentA, (T) "cookie", null);
         sentB = sentA.next;
         size = 0;
     }
 
     /** Adds an item to the front of the Deque */
-    public void addFirst(Stuff i) {
+    public void addFirst(T i) {
         sentA.next = new StuffNode(sentA, i, sentA.next);
         sentA.next.next.prev = sentA.next;
         size++;
     }
 
     /** Adds an item to the end of the Deque */
-    public void addLast(Stuff i) {
+    public void addLast(T i) {
         sentB.prev = new StuffNode(sentB.prev, i, sentB);
         sentB.prev.prev.next = sentB.prev;
         size++;
@@ -82,11 +82,11 @@ public class LinkedListDeque<Stuff> {
      * Remove the first item of the Deque
      * @return the item that have been removed
      */
-    public Stuff removeFirst() {
+    public T removeFirst() {
         if (isEmpty()) {
             return null;
         }
-        Stuff first = sentA.next.item;
+        T first = sentA.next.item;
         sentA.next = sentA.next.next;
         sentA.next.prev = sentA;
         size--;
@@ -97,11 +97,11 @@ public class LinkedListDeque<Stuff> {
      * Remove the last item of the Deque
      * @return the item that have been removed
      */
-    public Stuff removeLast() {
+    public T removeLast() {
         if (isEmpty()) {
             return null;
         }
-        Stuff last = sentB.prev.item;
+        T last = sentB.prev.item;
         sentB.prev = sentB.prev.prev;
         sentB.prev.next = sentB;
         size--;
@@ -109,7 +109,7 @@ public class LinkedListDeque<Stuff> {
     }
 
     /** Get the particular index of item in the Deque */
-    public Stuff get(int index) {
+    public T get(int index) {
         if (isEmpty()) {
             return null;
         }
@@ -133,7 +133,7 @@ public class LinkedListDeque<Stuff> {
     }
 
     /** Recursive version of get method */
-    public Stuff getRecursive(int index) {
+    public T getRecursive(int index) {
         if (isEmpty() || index >= size) {
             return null;
         }
