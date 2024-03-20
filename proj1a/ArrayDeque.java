@@ -36,21 +36,19 @@ public class ArrayDeque<T> {
     /** To check whether the usage of Deque is good */
     private void check() {
         if (items.length >= 16 && (double)size / items.length < 0.25) {
-            T[] a = (T[])new Object[length / 4];
-            System.arraycopy(items, 0, a, 0, length / 4);
+            T[] a = (T[])new Object[items.length / 4];
+            int length = items.length - first;
+            System.arraycopy(items, first, a,
+                    a.length / 2 - 1, length);
+            if (length != items.length) {
+                System.arraycopy(items, 0, a,
+                        a.length / 2 - 1 + length, first);
+            }
             items = a;
-            length /= 4;
+            nextFirst = (items.length / 2 - 1 - 1 + items.length) % items.length;
+            first = (nextFirst + 1) % items.length;
+            nextLast = (nextLast + size + 1) % items.length;
         }
-    }
-
-    /** To move the index to the front of the current index */
-    private int moveForward(int index) {
-        return (index - 1 + items.length) % items.length;
-    }
-
-    /** To move the index to the next to the current index */
-    private int moveBackward(int index) {
-        return (index + 1) % items.length;
     }
 
     /** Expend twice the size of array */
@@ -67,6 +65,16 @@ public class ArrayDeque<T> {
         nextFirst = (items.length / 2 - 1 - 1 + items.length) % items.length;
         first = (nextFirst + 1) % items.length;
         nextLast = (nextLast + size + 1) % items.length;
+    }
+
+    /** To move the index to the front of the current index */
+    private int moveForward(int index) {
+        return (index - 1 + items.length) % items.length;
+    }
+
+    /** To move the index to the next to the current index */
+    private int moveBackward(int index) {
+        return (index + 1) % items.length;
     }
 
     /** Adds an item in front of the Deque */
@@ -120,7 +128,7 @@ public class ArrayDeque<T> {
         T trash = items[nextLast];
         items[nextLast] = null;
         size--;
-        return
+        return trash;
     }
 
     /** Get the particular index of item in the Deque */
