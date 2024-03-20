@@ -55,11 +55,12 @@ public class ArrayDeque<T> {
     private void resize() {
         T[] a = (T[]) new Object[items.length * 2];
         int length = items.length - first;
-        System.arraycopy(items, first, a,
-                a.length / 2 - 1, length);
-        if (length != items.length) {
-            System.arraycopy(items, 0, a,
-                    a.length / 2 - 1 + length, first);
+        if (length < size) {
+            System.arraycopy(items, first, a, a.length / 2 - 1, length);
+            int left = size - length;
+            System.arraycopy(items, nextLast - 1, a, a.length / 2 - 1 + length, left);
+        } else {
+            System.arraycopy(items, first, a, a.length / 2 - 1, size);
         }
         items = a;
         nextFirst = (items.length / 2 - 1 - 1 + items.length) % items.length;
