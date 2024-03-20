@@ -9,14 +9,14 @@
  * the last item: (if exist)always are the item in front of sentB
  */
 
-public class LinkedListDeque
+public class LinkedListDeque<Stuff>
 {
     /** The naked linked list class */
-    public static class T
+    public class T
     {
         /** The node points to both sides of an item */
         private T prev, next;
-        private int item;
+        private Stuff item;
 
         /**
          * The constructor function of the T class
@@ -24,7 +24,7 @@ public class LinkedListDeque
          * @param i the item
          * @param n the node points to the next item
          */
-        public T(T p, int i, T n)
+        public T(T p, Stuff i, T n)
         {
             prev = p;
             item = i;
@@ -38,14 +38,14 @@ public class LinkedListDeque
     /** Create an empty LinkedListDeque */
     public LinkedListDeque()
     {
-        sentA = new T(null, 61, null);
-        sentA.next = new T(sentA, 61, null);
+        sentA = new T(null, (Stuff) "cake", null);
+        sentA.next = new T(sentA, (Stuff) "cookie", null);
         sentB = sentA.next;
         size = 0;
     }
 
     /** Adds an item to the front of the Deque */
-    public void addFirst(int i)
+    public void addFirst(Stuff i)
     {
         sentA.next = new T(sentA, i, sentA.next);
         sentA.next.next.prev = sentA.next;
@@ -53,7 +53,7 @@ public class LinkedListDeque
     }
 
     /** Adds an item to the end of the Deque */
-    public void addLast(int i)
+    public void addLast(Stuff i)
     {
         sentB.prev = new T(sentB.prev, i, sentB);
         sentB.prev.prev.next = sentB.prev;
