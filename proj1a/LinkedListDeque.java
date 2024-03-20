@@ -1,4 +1,7 @@
-/**
+/** First part of project1A.
+ *  deque implemented by linklist
+ *  @author lin
+ *
  * Invariants:
  * size: the size of the naked linked list
  * sentA and sentB: always points to the sentinel node
@@ -176,5 +179,5 @@ public class LinkedListDeque
         System.out.print("The Deque after remove its both sides is: ");
         L.printDeque();
     }
-
 }
+
