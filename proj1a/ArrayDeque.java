@@ -36,7 +36,7 @@ public class ArrayDeque<T> {
     /** To check whether the usage of Deque is good */
     private void check() {
         if (length >= 16 && (double)size / length < 0.25) {
-            T[] a = (T[]) new Object[length / 4];
+            T[] a = (T[])new Object[length / 4];
             System.arraycopy(items, 0, a, 0, length / 4);
             items = a;
             length /= 4;
@@ -59,16 +59,10 @@ public class ArrayDeque<T> {
         return index + 1;
     }
 
-    /**
-     * Expend the size of array
-     * @param capacity the size to expend
-     */
-    private void resize(int capacity) {
-        if (capacity <= length) {
-            return;
-        }
-        T[] a = (T[]) new Object[capacity];
-        System.arraycopy(items, 0, a, 0, items.length);
+    /** Expend twice the size of array */
+    private void resize() {
+        T[] a = (T[]) new Object[length * 2];
+        System.arraycopy(items, 0, a, 0, length);
         items = a;
         length *= 2;
     }
@@ -76,7 +70,7 @@ public class ArrayDeque<T> {
     /** Adds an item in front of the Deque */
     public void addFirst(T item) {
         if (size == length) {
-            resize(size * 2);
+            resize();
         }
         items[nextFirst] = item;
         nextFirst = moveForward(nextFirst);
@@ -86,7 +80,7 @@ public class ArrayDeque<T> {
     /** Adds an item to the end of the Deque */
     public void addLast(T item) {
         if (size == length) {
-            resize(size * 2);
+            resize();
         }
         items[nextLast] = item;
         nextLast = moveBackward(nextLast);
@@ -99,6 +93,9 @@ public class ArrayDeque<T> {
      */
     public T removeFirst() {
         check();
+        if (isEmpty()) {
+            return null;
+        }
         int index = moveBackward(nextFirst);
         T trash = items[index];
         nextFirst = index;
@@ -112,6 +109,9 @@ public class ArrayDeque<T> {
      */
     public T removeLast() {
         check();
+        if (isEmpty()) {
+            return null;
+        }
         int index = moveForward(nextLast);
         T trash = items[index];
         nextLast = index;
@@ -122,9 +122,11 @@ public class ArrayDeque<T> {
     /** Get the particular index of item in the Deque */
     public T get(int index) {
         check();
+        if (isEmpty()) {
+            return null;
+        }
         int ptr = nextFirst;
-        for (int i = 0; i < index; i++)
-        {
+        for (int i = 0; i < index; i++) {
             ptr = moveBackward(ptr);
         }
         return items[ptr];

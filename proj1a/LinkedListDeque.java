@@ -22,8 +22,7 @@ public class LinkedListDeque<T> {
          * @param i the item
          * @param n the node points to the next item
          */
-        public StuffNode(StuffNode p, T i, StuffNode n)
-        {
+        public StuffNode(StuffNode p, T i, StuffNode n) {
             prev = p;
             item = i;
             next = n;
