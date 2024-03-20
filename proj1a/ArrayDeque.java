@@ -24,14 +24,14 @@ public class ArrayDeque<T> {
     }
 
     /** The constructor function of the copy of ArrayDeque class */
-    public ArrayDeque(ArrayDeque other) {
-        items = (T[]) new Object[other.length];
-        System.arraycopy(other.items, 0, items, 0, other.length);
-        size = other.size;
-        length = other.length;
-        nextLast = other.nextLast;
-        nextFirst = other.nextFirst;
-    }
+//    public ArrayDeque(ArrayDeque other) {
+//        items = (T[]) new Object[other.length];
+//        System.arraycopy(other.items, 0, items, 0, other.length);
+//        size = other.size;
+//        length = other.length;
+//        nextLast = other.nextLast;
+//        nextFirst = other.nextFirst;
+//    }
 
     /** To check whether the usage of Deque is good */
     private void check() {
@@ -45,18 +45,12 @@ public class ArrayDeque<T> {
 
     /** To move the index to the front of the current index */
     private int moveForward(int index) {
-        if (index == 0) {
-            return length - 1;
-        }
-        return index - 1;
+        return (index - 1 + length) % length;
     }
 
     /** To move the index to the next to the current index */
     private int moveBackward(int index) {
-        if (index == length - 1) {
-            return 0;
-        }
-        return index + 1;
+        return (index + 1) % length;
     }
 
     /** Expend twice the size of array */
@@ -122,14 +116,11 @@ public class ArrayDeque<T> {
     /** Get the particular index of item in the Deque */
     public T get(int index) {
         check();
-        if (isEmpty()) {
+        if (isEmpty() || index < 0 || index > size - 1) {
             return null;
         }
-        int ptr = nextFirst;
-        for (int i = 0; i < index; i++) {
-            ptr = moveBackward(ptr);
-        }
-        return items[ptr];
+        index += moveBackward(nextFirst);
+        return items[index % length];
     }
 
     /** Return the size of the Deque */

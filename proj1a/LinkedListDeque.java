@@ -11,7 +11,7 @@
 
 public class LinkedListDeque<T> {
     /** The naked-linked list class */
-    public class StuffNode {
+    private class StuffNode {
         /** The node points to both sides of an item */
         private StuffNode prev, next;
         private T item;
@@ -123,7 +123,7 @@ public class LinkedListDeque<T> {
      * The helper method of the recursion
      * @sourse PKUflyingPig
      */
-    public StuffNode realGet(StuffNode p, int index) {
+    private StuffNode realGet(StuffNode p, int index) {
         if (index == 0) {
             return p;
         }
