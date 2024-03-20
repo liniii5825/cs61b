@@ -10,15 +10,15 @@
  * the last item: (if exist)always are the item in front of nextLast
  */
 
-public class ArrayDeque
+public class ArrayDeque<T>
 {
-    private int[] items;
+    private T[] items;
     private int size, length, nextFirst, nextLast;
 
     /** The constructor function of the ArrayDeque class */
     public ArrayDeque()
     {
-        items = new int[8];
+        items = (T[]) new Object[8];
         size = 0;
         length = 8;
         nextFirst = 4;
@@ -28,7 +28,7 @@ public class ArrayDeque
     /** The constructor function of the copy of ArrayDeque class */
     public ArrayDeque(ArrayDeque other)
     {
-        items = new int[other.length];
+        items = (T[]) new Object[other.length];
         System.arraycopy(other.items, 0, items, 0, other.length);
         size = other.size;
         length = other.length;
@@ -41,7 +41,7 @@ public class ArrayDeque
     {
         if (length >= 16 && (double)size / length < 0.25)
         {
-            int[] a = new int[length / 4];
+            T[] a = (T[]) new Object[length / 4];
             System.arraycopy(items, 0, a, 0, length / 4);
             items = a;
             length /= 4;
@@ -80,14 +80,14 @@ public class ArrayDeque
         {
             return;
         }
-        int[] a = new int[capacity];
+        T[] a = (T[]) new Object[capacity];
         System.arraycopy(items, 0, a, 0, items.length);
         items = a;
         length *= 2;
     }
 
     /** Adds an item in front of the Deque */
-    public void addFirst(int item)
+    public void addFirst(T item)
     {
         if (size == length)
         {
@@ -99,7 +99,7 @@ public class ArrayDeque
     }
 
     /** Adds an item to the end of the Deque */
-    public void addLast(int item)
+    public void addLast(T item)
     {
         if (size == length)
         {
@@ -114,10 +114,10 @@ public class ArrayDeque
      * Remove the first item of the Deque
      * @return the item that have been removed
      */
-    public int removeFirst()
+    public T removeFirst()
     {
         int index = moveBackward(nextFirst);
-        int trash = items[index];
+        T trash = items[index];
         nextFirst = index;
         size--;
         return trash;
@@ -127,17 +127,17 @@ public class ArrayDeque
      * Remove the last item of the Deque
      * @return the item that have been removed
      */
-    public int removeLast()
+    public T removeLast()
     {
         int index = moveForward(nextLast);
-        int trash = items[index];
+        T trash = items[index];
         nextLast = index;
         size--;
         return trash;
     }
 
     /** Get the particular index of item in the Deque */
-    public int get(int index)
+    public T get(int index)
     {
         int ptr = nextFirst;
         for (int i = 0; i < index; i++)
