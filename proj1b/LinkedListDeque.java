@@ -8,7 +8,7 @@
  *  the last item: (if exist) always are the item in front of sentB
  */
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
         /** The naked-linked list class */
         private class StuffNode {
                 /** The node points to both sides of an item */
@@ -39,14 +39,8 @@ public class LinkedListDeque<T> {
                 size = 0;
         }
 
-        /** Create a LinkedListDeque with single item */
-        public LinkedListDeque(T i) {
-                LinkedListDeque();
-                sentA.next = new StuffNode(sentA, i, sentA.next);
-                sentB.prev = sentA.next;
-        }
-
         /** Adds an item to the front of the Deque */
+        @Override
         public void addFirst(T i) {
                 StuffNode tmp = sentA.next;
                 sentA.next = new StuffNode(sentA, i, sentA.next);
@@ -55,6 +49,7 @@ public class LinkedListDeque<T> {
         }
 
         /** Adds an item to the end of the Deque */
+        @Override
         public void addLast(T i) {
                 StuffNode tmp = sentB.prev;
                 sentB.prev = new StuffNode(sentB.prev, i, sentB);
@@ -63,23 +58,26 @@ public class LinkedListDeque<T> {
         }
 
         /** Check whether the Deque is empty */
+        @Override
         public boolean isEmpty() {
                 return sentA.next == sentB;
         }
 
         /** Return the size of the Deque */
+        @Override
         public int size() {
                 return size;
         }
 
         /** Print the whole Deque (with each item) */
+        @Override
         public void printDeque() {
                 if (isEmpty()) {
                         return;
                 }
                 StuffNode p = sentA.next;
                 while (p != null) {
-                        System.out.print(p.item + ' ');
+                        System.out.print(p.item + " ");
                         p = p.next;
                 }
                 System.out.println();
@@ -89,6 +87,7 @@ public class LinkedListDeque<T> {
          * Remove the first item of the Deque
          * @return the item that have been removed
          */
+        @Override
         public T removeFirst() {
                 if (isEmpty()) {
                         return null;
@@ -97,6 +96,7 @@ public class LinkedListDeque<T> {
                 T i = first.item;
                 first = first.next;
                 first.prev = sentA;
+                sentA.next = first;
                 size -= 1;
                 return i;
         }
@@ -105,6 +105,7 @@ public class LinkedListDeque<T> {
          * Remove the last item of the deque
          * @return the item that have been removed
          */
+        @Override
         public T removeLast() {
                 if (isEmpty()) {
                         return null;
@@ -113,11 +114,13 @@ public class LinkedListDeque<T> {
                 T i = last.item;
                 last = last.prev;
                 last.next = sentB;
+                sentB.prev = last;
                 size -= 1;
                 return i;
         }
 
         /** Get the particular item by index in the Deque */
+        @Override
         public T get(int index) {
                 if (isEmpty() || index < 0 || index >= size) {
                         return null;
