@@ -36,8 +36,9 @@ public class TETile {
      * @param description The description of the tile, shown in the GUI on hovering over the tile.
      * @param filepath Full path to image to be used for this tile. Must be correct size (16x16)
      */
-    public TETile(char character, Color textColor, Color backgroundColor, String description,
-                  String filepath) {
+    public TETile(char character, Color textColor,
+                  Color backgroundColor,
+                  String description, String filepath) {
         this.character = character;
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
@@ -53,7 +54,8 @@ public class TETile {
      * @param backgroundColor The color drawn behind the character.
      * @param description The description of the tile, shown in the GUI on hovering over the tile.
      */
-    public TETile(char character, Color textColor, Color backgroundColor, String description) {
+    public TETile(char character, Color textColor,
+                  Color backgroundColor, String description) {
         this.character = character;
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
@@ -67,7 +69,8 @@ public class TETile {
      * @param textColor foreground color for tile copy
      */
     public TETile(TETile t, Color textColor) {
-        this(t.character, textColor, t.backgroundColor, t.description, t.filepath);
+        this(t.character, textColor, t.backgroundColor,
+                t.description, t.filepath);
     }
 
 
@@ -190,10 +193,11 @@ public class TETile {
         return copy;
     }
 
-    @Override
+
     /** Provides an equals method that is consistent
      *  with the way that the autograder works.
      */
+    @Override
     public boolean equals(Object x) {
         if (this == x) {
             return true;
